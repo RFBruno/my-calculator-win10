@@ -38,6 +38,15 @@ class Calculator {
 
      if(this.mathExpression.length <= 3){
 
+         if( value === '.' && this.mathExpression.length === 1){
+             if(this.mathExpression[0].includes('.')){
+                 return;
+             }
+         }else if(value === '.' && this.mathExpression.length === 3){
+            if(this.mathExpression[2].includes('.'))
+            return;
+        }
+
         if (this.isOperator(value)) {
             if(value === '%' && this.mathExpression.length === 3){
                 this.porcentCalc();
@@ -66,6 +75,9 @@ class Calculator {
             if(this.isOperator(this.lastItem())){                                                                 
                 this.mathExpression.push(value);                 
             }else{
+                if(this.lastItem() === '0'){
+                    this.setLastItem('');                    
+                }                
                 this.mathExpression[this.mathExpression.length - 1] += value;                  
             }
         }
@@ -103,7 +115,7 @@ class Calculator {
             case '7':
             case '8':
             case '9':
-            case '0':
+            case '0':            
                 this.expressionBuild(value);
                 break;
             case 'CE':
@@ -126,6 +138,9 @@ class Calculator {
                 break;
             case '%':
                 this.expressionBuild('%');
+                break;
+            case ',':
+                this.expressionBuild('.');
                 break;
             case '=':
                 this.execCalc();
