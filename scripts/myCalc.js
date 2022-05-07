@@ -1,0 +1,1 @@
+window.myCalc = new Calculator();
